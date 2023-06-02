@@ -49,13 +49,25 @@ app.get('/', (req, res) => {
         <form id="data" method="POST">
     
     
-         <div id="editor_code">int i = 10;
-    number_rayu(i);</div>
+         <div id="editor_code">int i;
+for (i = 1; i <= 3; i++)
+{
+   printf("%d", i);
+}
+  
+         </div>
         <div id="editor_json">[
-            {"line": 2, "variable": "i",        "answer": 1},
-            {"line": 4, "variable": "output",   "answer": 1},
-            {"line": 2, "gotoline": 4},
-            {"line": 6}
+          {"line": 2, "variable": "i",  "answer": 1},
+          {"variable": "output", "line": 4, "answer": 1},
+          {"variable": "i", "line": 2, "answer": 2},
+          {"variable": "output", "line": 4, "answer": 2},
+          {"variable": "i", "line": 2, "answer": 3},
+          {"gotoline": 4, "line": 2 },
+          {"variable": "output", "line": 4, "answer": 3},
+          {"variable": "i", "line": 2, "answer": 4},
+          {"gotoline": 6, "line": 2},
+          {"line": 6}
+        
     ]</div>
     <div id="editor_trace_variables">i output</div>
     <button type="submit" id="submit" >submit</button>
