@@ -173,15 +173,19 @@ function download_html_json() {
         explanation: editorData.explanation.getValue()
     };
 
-    // Download JSON file
-    var jsonBlob = new Blob([JSON.stringify(jsonObject)], { type: "application/json" });
-    var downloadLinkJSON = document.createElement("a");
-    var urlJSON = URL.createObjectURL(jsonBlob);
-    downloadLinkJSON.href = urlJSON;
-    downloadLinkJSON.download = `${id}.json`;
-    document.body.appendChild(downloadLinkJSON);
-    downloadLinkJSON.click();
-    document.body.removeChild(downloadLinkJSON);
+
+
+    setTimeout(function () {
+        // Download JSON file
+        var jsonBlob = new Blob([JSON.stringify(jsonObject)], { type: "application/json" });
+        var downloadLinkJSON = document.createElement("a");
+        var urlJSON = URL.createObjectURL(jsonBlob);
+        downloadLinkJSON.href = urlJSON;
+        downloadLinkJSON.download = `${id}.json`;
+        document.body.appendChild(downloadLinkJSON);
+        downloadLinkJSON.click();
+        document.body.removeChild(downloadLinkJSON);
+    }, 1000); // Delay of 1 second
 }
 
 
