@@ -40,7 +40,7 @@ function traceVaraibles(jsonText) {
   }
 
   function createHtml() {
-    var code = editor_code.getValue();
+    var code = editorData.code.getValue();
     code = encodeHTMLEntities(code);
     var walkthrough = editorData.json.getValue();
     var trace_variables = traceVaraibles(walkthrough);
