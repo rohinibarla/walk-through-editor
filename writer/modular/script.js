@@ -8,6 +8,18 @@ function setupAceEditors() {
     editorData.json = ace.edit("editor_json");
     editorData.json.setTheme("ace/theme/monokai");
     editorData.json.session.setMode("ace/mode/json");
+    
+    editorData.title = ace.edit("title_editor");
+    editorData.title.setTheme("ace/theme/monokai");
+    editorData.title.session.setMode("ace/mode/text");
+
+    editorData.id = ace.edit("id_editor");
+    editorData.id.setTheme("ace/theme/monokai");
+    editorData.id.session.setMode("ace/mode/text");
+
+    editorData.explaination = ace.edit("explaination_editor");
+    editorData.explaination.setTheme("ace/theme/monokai");
+    editorData.explaination.session.setMode("ace/mode/text");
 }
 
 // Other functions
@@ -52,10 +64,14 @@ function traceVaraibles(jsonText) {
 
 // Create HTML Content
 function createHtmlContent(code, walkthrough, trace_variables) {
+    var title = editorData.title.getValue();
+    var id = editorData.id.getValue();
+    var explaination = editorData.explaination.getValue();
+
     var work_around = `</scri` + `pt>`;
     
     var htmlHead = createHtmlHead(work_around);
-    var htmlBody = createHtmlBody(code, walkthrough, trace_variables, work_around);
+    var htmlBody = createHtmlBody(code, walkthrough, trace_variables, work_around, title, id, explaination);
     
     return `<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -68,7 +84,7 @@ function createHtmlContent(code, walkthrough, trace_variables) {
 function createHtmlHead(work_around) {
     return `<head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-<title>Walk-through C loops 01</title> 
+<title>Enhance42 Walkthrough</title> 
 <script type="text/javascript" src="https://e42.dev/c/assets/scripts/e42_all_min.js">${work_around}
 <link type="text/css" rel="stylesheet" href="https://e42.dev/c/assets/css/e42_all_min.css"></link>
 <style type="text/css">
@@ -96,13 +112,13 @@ body {
 }
 
 // Create HTML Body
-function createHtmlBody(code, walkthrough, trace_variables, work_around) {
+function createHtmlBody(code, walkthrough, trace_variables, work_around, title, id, explaination) {
     return `<body>
 <ol class="interactivities" id="interactivities">
-    <li title="c-loops-walkthrough-01" id="c-loops-walkthrough-01">
+    <li title="${title}" id="${id}">
         <div class="hc-included">
             <div>
-                <p>Walk-through the sample code.</p>
+                <p>${explaination}</p>
                 <div class="e42_walkthrough">
                     <pre>${code}</pre>
                     <table style="font-size:x-large"><tr>${trace_variables}</tr></table>

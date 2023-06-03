@@ -1,6 +1,26 @@
+#title_editor, #id_editor, #explaination_editor {
+    position: absolute;
+    top: 80%;
+    height: 10%;
+    width: 33%;
+    font-size:large;
+}
+
+#title_editor {
+    left: 0%;
+}
+
+#id_editor {
+    left: 33%;
+}
+
+#explaination_editor {
+    left: 66%;
+}
+
 #editor_json, #editor_code {
     position: absolute;
-    height: 90%;
+    height: 80%;
 }
 
 #editor_json {
