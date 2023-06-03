@@ -25,9 +25,23 @@ function traceVaraibles(jsonText) {
     return uniqueVariables.map(va => `<th>${va}</th>`).join('');
 }
 
-// Create HTML
-function createHtml() {
-    var code = editorData.code.getValue();
+ function encodeHTMLEntities(code) {
+    var htmlEntities = {
+      "<": "&lt;",
+      ">": "&gt;",
+      "&": "&amp;",
+      "'": "&apos;",
+      '"': "&quot;",
+    };
+
+    return code.replace(/[<>&'"]/g, function (match) {
+      return htmlEntities[match];
+    });
+  }
+
+  function createHtml() {
+    var code = editor_code.getValue();
+    code = encodeHTMLEntities(code);
     var walkthrough = editorData.json.getValue();
     var trace_variables = traceVaraibles(walkthrough);
     var htmlContent = createHtmlContent(code, walkthrough, trace_variables);

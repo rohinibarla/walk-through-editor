@@ -108,10 +108,23 @@ printf("%d", i);</div>
 
             return uniqueVariables.map(va => `<th>${va}</th>`).join('');
         }
+        function encodeHTMLEntities(code) {
+          var htmlEntities = {
+            "<": "&lt;",
+            ">": "&gt;",
+            "&": "&amp;",
+            "'": "&apos;",
+            '"': "&quot;",
+            };
 
-        function createHtml() {
+            return code.replace(/[<>&'"]/g, function (match) {
+                return htmlEntities[match];
+            });
+      }
 
+      function createHtml() {
             var code = editor_code.getValue();
+            code = encodeHTMLEntities(code);
             var walkthrough = editor_json.getValue();
             var trace_variables = traceVaraibles(walkthrough);
 
