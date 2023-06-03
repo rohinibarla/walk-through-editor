@@ -17,9 +17,9 @@ function setupAceEditors() {
     editorData.id.setTheme("ace/theme/monokai");
     editorData.id.session.setMode("ace/mode/text");
 
-    editorData.explaination = ace.edit("explaination_editor");
-    editorData.explaination.setTheme("ace/theme/monokai");
-    editorData.explaination.session.setMode("ace/mode/text");
+    editorData.explanation = ace.edit("explanation_editor");
+    editorData.explanation.setTheme("ace/theme/monokai");
+    editorData.explanation.session.setMode("ace/mode/text");
 }
 
 // Other functions
@@ -66,12 +66,12 @@ function traceVaraibles(jsonText) {
 function createHtmlContent(code, walkthrough, trace_variables) {
     var title = editorData.title.getValue();
     var id = editorData.id.getValue();
-    var explaination = editorData.explaination.getValue();
+    var explanation = editorData.explanation.getValue();
 
     var work_around = `</scri` + `pt>`;
     
     var htmlHead = createHtmlHead(work_around);
-    var htmlBody = createHtmlBody(code, walkthrough, trace_variables, work_around, title, id, explaination);
+    var htmlBody = createHtmlBody(code, walkthrough, trace_variables, work_around, title, id, explanation);
     
     return `<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -112,13 +112,13 @@ body {
 }
 
 // Create HTML Body
-function createHtmlBody(code, walkthrough, trace_variables, work_around, title, id, explaination) {
+function createHtmlBody(code, walkthrough, trace_variables, work_around, title, id, explanation) {
     return `<body>
 <ol class="interactivities" id="interactivities">
     <li title="${title}" id="${id}">
         <div class="hc-included">
             <div>
-                <p>${explaination}</p>
+                <p>${explanation}</p>
                 <div class="e42_walkthrough">
                     <pre>${code}</pre>
                     <table style="font-size:x-large"><tr>${trace_variables}</tr></table>
@@ -151,17 +151,38 @@ function open_html() {
     window.open(url, '_blank');
 }
 
-function download_html() {
+function download_html_json() {
     var blob = createHtml();
-    var downloadLink = document.createElement("a");
-    var url = URL.createObjectURL(blob);
-    downloadLink.href = url;
-    downloadLink.download = "index.html";
 
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+    // Download HTML file
+    var downloadLinkHTML = document.createElement("a");
+    var urlHTML = URL.createObjectURL(blob);
+    downloadLinkHTML.href = urlHTML;
+    downloadLinkHTML.download = "index.html";
+    document.body.appendChild(downloadLinkHTML);
+    downloadLinkHTML.click();
+    document.body.removeChild(downloadLinkHTML);
+
+    // Create JSON object
+    var jsonObject = {
+        code: editorData.code.getValue(),
+        walkthrough: editorData.json.getValue(),
+        title: editorData.title.getValue(),
+        id: editorData.id.getValue(),
+        explanation: editorData.explanation.getValue()
+    };
+
+    // Download JSON file
+    var jsonBlob = new Blob([JSON.stringify(jsonObject)], { type: "application/json" });
+    var downloadLinkJSON = document.createElement("a");
+    var urlJSON = URL.createObjectURL(jsonBlob);
+    downloadLinkJSON.href = urlJSON;
+    downloadLinkJSON.download = "details.json";
+    document.body.appendChild(downloadLinkJSON);
+    downloadLinkJSON.click();
+    document.body.removeChild(downloadLinkJSON);
 }
+
 
 window.onload = setupAceEditors;
 

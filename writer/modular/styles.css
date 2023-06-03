@@ -1,4 +1,4 @@
-#title_editor, #id_editor, #explaination_editor {
+#title_editor, #id_editor, #explanation_editor {
     position: absolute;
     top: 80%;
     height: 10%;
@@ -14,7 +14,7 @@
     left: 33%;
 }
 
-#explaination_editor {
+#explanation_editor {
     left: 66%;
 }
 
