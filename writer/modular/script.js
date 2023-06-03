@@ -25,7 +25,7 @@ function traceVaraibles(jsonText) {
     return uniqueVariables.map(va => `<th>${va}</th>`).join('');
 }
 
-function encodeHTMLEntities(code) {
+ function encodeHTMLEntities(code) {
     var htmlEntities = {
       "<": "&lt;",
       ">": "&gt;",
