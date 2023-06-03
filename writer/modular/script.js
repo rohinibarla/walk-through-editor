@@ -153,12 +153,13 @@ function open_html() {
 
 function download_html_json() {
     var blob = createHtml();
+    var id = editorData.id.getValue();
 
     // Download HTML file
     var downloadLinkHTML = document.createElement("a");
     var urlHTML = URL.createObjectURL(blob);
     downloadLinkHTML.href = urlHTML;
-    downloadLinkHTML.download = "index.html";
+    downloadLinkHTML.download = `${id}.html`;
     document.body.appendChild(downloadLinkHTML);
     downloadLinkHTML.click();
     document.body.removeChild(downloadLinkHTML);
@@ -177,7 +178,7 @@ function download_html_json() {
     var downloadLinkJSON = document.createElement("a");
     var urlJSON = URL.createObjectURL(jsonBlob);
     downloadLinkJSON.href = urlJSON;
-    downloadLinkJSON.download = "details.json";
+    downloadLinkJSON.download = `${id}.json`;
     document.body.appendChild(downloadLinkJSON);
     downloadLinkJSON.click();
     document.body.removeChild(downloadLinkJSON);
