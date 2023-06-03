@@ -46,7 +46,8 @@ function traceVaraibles(jsonText) {
     var trace_variables = traceVaraibles(walkthrough);
     var htmlContent = createHtmlContent(code, walkthrough, trace_variables);
 
-    openInNewTab(htmlContent);
+    var blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+    return blob;
 }
 
 // Create HTML Content
@@ -70,7 +71,27 @@ function createHtmlHead(work_around) {
 <title>Walk-through C loops 01</title> 
 <script type="text/javascript" src="https://e42.dev/c/assets/scripts/e42_all_min.js">${work_around}
 <link type="text/css" rel="stylesheet" href="https://e42.dev/c/assets/css/e42_all_min.css"></link>
-<style type="text/css">...</style>
+<style type="text/css">
+ol.interactivities>li {
+    list-style: none;
+    margin-bottom: 2em;
+}
+
+.problemheading {
+    font-size: 1.4em;
+    font-weight: bold;
+    font-family: monospace;
+    border-top: thin dotted black;
+    padding-top: 0.4em;
+}
+
+body {
+    margin-left: 2em;
+    margin-right: 2em;
+    overflow-y: visible;
+    font-size: x-large;
+}
+</style>
 </head>`;
 }
 
@@ -106,4 +127,25 @@ function openInNewTab(htmlContent) {
     window.open(url, '_blank');
 }
 
+function open_html() {
+    var blob = createHtml();
+    var url = URL.createObjectURL(blob);
+
+    // Open the URL in a new tab
+    window.open(url, '_blank');
+}
+
+function download_html() {
+    var blob = createHtml();
+    var downloadLink = document.createElement("a");
+    var url = URL.createObjectURL(blob);
+    downloadLink.href = url;
+    downloadLink.download = "index.html";
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
+
 window.onload = setupAceEditors;
+
